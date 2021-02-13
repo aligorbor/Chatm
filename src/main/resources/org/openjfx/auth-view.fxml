@@ -35,3 +35,4 @@
         <ChoiceBox fx:id="choicePersonAccount" layoutX="113.0" layoutY="18.0" prefHeight="39.0" prefWidth="210.0"/>
     </children>
 </AnchorPane>
+

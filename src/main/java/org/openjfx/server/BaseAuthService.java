@@ -99,5 +99,4 @@ public class BaseAuthService implements AuthService {
                 connection.close();
         }
     }
-
 }

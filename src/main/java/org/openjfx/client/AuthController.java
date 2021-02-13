@@ -39,6 +39,7 @@ public class AuthController {
 
         try {
             network.getOut().writeUTF(Network.CMD_PREF_AUTH + " " + login + " " + password);
+            network.setCurrentLogin(login);
             passwordField.clear();
         } catch (IOException e) {
             e.printStackTrace();

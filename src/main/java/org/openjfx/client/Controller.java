@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,8 +35,8 @@ public class Controller {
     @FXML
     private Button btnChangeNick;
 
-
     private MultipleSelectionModel<String> personsSelectionModel;
+    private MultipleSelectionModel<String> chatSelectionModel;
 
     private ObservableList<String> personList = FXCollections.observableArrayList
             ("Общий чат");
@@ -44,6 +44,7 @@ public class Controller {
 
     private Network network;
     private String loginNick;
+    private ArrayList<Integer> currentHistNumbLines = new ArrayList<>();
 
     public void setNetwork(Network network) {
         this.network = network;
@@ -52,16 +53,20 @@ public class Controller {
     @FXML
     void initialize() {
         personsSelectionModel = listPersons.getSelectionModel();
+        chatSelectionModel = listView.getSelectionModel();
+
         personsSelectionModel.selectedItemProperty().addListener((changed, oldValue, newValue) -> {
             labelPersonChat.setText(newValue);
             int index = personsSelectionModel.getSelectedIndex();
             listView.setItems(arrChat.get(index));
+            refreshChatList();
         });
 
         listPersons.setItems(personList);
-        while (arrChat.size() < personList.size())
+        while (arrChat.size() < personList.size()) {
             arrChat.add(FXCollections.observableArrayList());
-
+            currentHistNumbLines.add(0);
+        }
         personsSelectionModel.select(0);
     }
 
@@ -95,8 +100,13 @@ public class Controller {
         this.loginNick = loginNick;
     }
 
+    public void refreshChatList() {
+        if (listView.getItems().size() > 0)
+            chatSelectionModel.select(listView.getItems().size() - 1);
+    }
+
     public void appendMessage(String message) {
-        if (message.startsWith(Network.CMD_PREF_CHANGENICK) ) {
+        if (message.startsWith(Network.CMD_PREF_CHANGENICK)) {
             message = changeNick(message);
         }
         if (message.startsWith(Network.CMD_PREF_AUTHOK) || message.startsWith(Network.CMD_PREF_NICK)) {
@@ -116,8 +126,10 @@ public class Controller {
         } else {
             personsSelectionModel.select(0);
         }
-        if (!message.isBlank())
+        if (!message.isBlank()) {
             listView.getItems().add(message);
+            refreshChatList();
+        }
     }
 
     public String addNick(String strNick) {
@@ -132,10 +144,15 @@ public class Controller {
         } else if ((cmdPref.equals(Network.CMD_PREF_NICK) || cmdPref.equals(Network.CMD_PREF_NICKLIST)) && !msgNick.equals(loginNick)) {
             personList.add(msgNick);
             arrChat.add(FXCollections.observableArrayList());
+            currentHistNumbLines.add(0);
+            restoreChatFromFile(arrChat.size() - 1);
             if (cmdPref.equals(Network.CMD_PREF_NICK))
                 return msgNick + " зашел в чат";
         } else if (cmdPref.equals(Network.CMD_PREF_NICKEND) && !msgNick.equals(loginNick)) {
-            arrChat.remove(personList.indexOf(msgNick));
+            int ind = personList.indexOf(msgNick);
+            saveChatToFile(ind);
+            arrChat.remove(ind);
+            currentHistNumbLines.remove(ind);
             personList.remove(msgNick);
             return parts[1] + " вышел из чата";
         }
@@ -147,14 +164,22 @@ public class Controller {
         String oldNick = parts[1];
         String newNick = parts[2];
         if (loginNick.equals(oldNick)) {
-            loginNick=newNick;
+            loginNick = newNick;
             textLoginNick.setText(loginNick);
-        }else {
-            personList.set(personList.indexOf(oldNick),newNick);
+        } else {
+            personList.set(personList.indexOf(oldNick), newNick);
         }
+        changeHistoryFileName(oldNick, newNick);
         return oldNick + " сменил ник на " + newNick;
     }
 
+    private void changeHistoryFileName(String oldNick, String newNick) {
+        File fileOld = new File(Network.HISTORY_URL_STARTS + network.getCurrentLogin() + "_" + oldNick + ".txt");
+        File fileNew = new File(Network.HISTORY_URL_STARTS + network.getCurrentLogin() + "_" + newNick + ".txt");
+        if (fileNew.exists()) fileNew.delete();
+        if (fileOld.exists()) fileOld.renameTo(fileNew);
+
+    }
 
     public void prepareControls() {
         if (network.isAuthorized()) {
@@ -164,7 +189,6 @@ public class Controller {
             inputField.setDisable(true);
             sendButton.setDisable(true);
         }
-
     }
 
     @FXML
@@ -173,7 +197,7 @@ public class Controller {
 
         if (newNick.equals(loginNick)) return;
 
-        if (newNick.length() == 0 ) {
+        if (newNick.length() == 0) {
             System.out.println("!!Ник не должен быть пустым");
             return;
         }
@@ -184,6 +208,63 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("!!Ошибка смены ника");
+        }
+    }
+
+    public void saveChatToFiles() {
+        for (String person : personList) {
+            saveChatToFile(personList.indexOf(person));
+        }
+    }
+
+    public void saveChatToFile(int chatIndex) {
+        String fileName = Network.HISTORY_URL_STARTS + network.getCurrentLogin() + "_" + personList.get(chatIndex) + ".txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            ObservableList<String> chat = arrChat.get(chatIndex);
+
+            for (int i = currentHistNumbLines.get(chatIndex); i < chat.size(); i++) {
+                writer.write(chat.get(i) + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void restoreChatFromFiles() {
+        arrChat.get(0).clear();   //удаляю сообщения от авторизации
+        for (String person : personList) {
+            restoreChatFromFile(personList.indexOf(person));
+        }
+    }
+
+    public void restoreChatFromFile(int chatIndex) {
+        currentHistNumbLines.set(chatIndex, 0);
+
+        String fileName = Network.HISTORY_URL_STARTS + network.getCurrentLogin() + "_" + personList.get(chatIndex) + ".txt";
+
+        if (new File(fileName).exists()) {
+            ArrayList<String> history = new ArrayList<>();
+            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+                String str;
+                while ((str = reader.readLine()) != null) {
+                    history.add(str);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            int indexFrom;
+            if (history.size() > Network.HISTORY_NUMBER_LINES) {
+                indexFrom = history.size() - Network.HISTORY_NUMBER_LINES;
+                currentHistNumbLines.set(chatIndex, Network.HISTORY_NUMBER_LINES);
+            } else {
+                indexFrom = 0;
+                currentHistNumbLines.set(chatIndex, history.size());
+            }
+            for (int i = indexFrom; i < history.size(); i++) {
+                arrChat.get(chatIndex).add(history.get(i));
+            }
+
         }
     }
 }

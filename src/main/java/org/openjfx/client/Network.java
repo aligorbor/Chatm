@@ -23,10 +23,15 @@ public class Network {
     public static final String CMD_PREF_INDIVIDBACK = "/wback";
     public static final String CMD_PREF_CHANGENICK = "/changenick";
 
+    public static final int HISTORY_NUMBER_LINES = 100;
+    public static final String HISTORY_URL_STARTS = "src/main/resources/lib/history_";
+
+
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
     private boolean authorized;
+    private String currentLogin;
 
     private final Object lockAuthorization = new Object();
 
@@ -49,9 +54,18 @@ public class Network {
         this.authController = authController;
     }
 
+    public String getCurrentLogin() {
+        return currentLogin;
+    }
+
+    public void setCurrentLogin(String currentLogin) {
+        this.currentLogin = currentLogin;
+    }
+
     public Network(String host, int port) {
         this.port = port;
         this.host = host;
+        currentLogin = "";
     }
 
     public boolean isAuthorized() {
@@ -114,13 +128,16 @@ public class Network {
                 try {
                     while (true) {
                         String message = in.readUTF();
-                        Platform.runLater(() -> controller.appendMessage(message));
                         if (message.startsWith(Network.CMD_PREF_AUTHOK)) {
                             setAuthorized(true);
+                            Platform.runLater(() -> controller.restoreChatFromFiles());
+                            Platform.runLater(() -> controller.appendMessage(message));
+
+                            Platform.runLater(() -> controller.refreshChatList());
                             Platform.runLater(() -> appChat.getAuthStage().close());
                             //   Platform.runLater(() -> mainChat.getPrimaryStage().show());
                             break;
-                        }
+                        } else Platform.runLater(() -> controller.appendMessage(message));
                     }
                 } catch (IOException e) {
                     System.out.println("Ошибка при авторизации");

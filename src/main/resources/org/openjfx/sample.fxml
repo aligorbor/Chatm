@@ -10,27 +10,35 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.client.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0"
+            prefWidth="529.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.openjfx.client.Controller">
     <bottom>
-        <SplitPane dividerPositions="0.7661927330173776" prefHeight="70.0" prefWidth="529.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.7661927330173776" prefHeight="70.0" prefWidth="529.0"
+                   BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="68.0" prefWidth="400.0">
                     <children>
-                        <TextField fx:id="inputField" disable="true" layoutX="71.0" layoutY="14.0" onAction="#sendMessage" prefHeight="68.0" prefWidth="400.0" promptText="Input your message" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TextField fx:id="inputField" disable="true" layoutX="71.0" layoutY="14.0"
+                                   onAction="#sendMessage" prefHeight="68.0" prefWidth="400.0"
+                                   promptText="Input your message" AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <padding>
-                                <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                                <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
                             </padding>
                             <font>
-                                <Font size="20.0" />
+                                <Font size="20.0"/>
                             </font>
                         </TextField>
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="68.0" prefWidth="100.0">
                     <children>
-                        <Button fx:id="sendButton" disable="true" layoutX="6.0" mnemonicParsing="false" onAction="#sendMessage" text="Send" textFill="#dd3434" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="sendButton" disable="true" layoutX="6.0" mnemonicParsing="false"
+                                onAction="#sendMessage" text="Send" textFill="#dd3434" AnchorPane.bottomAnchor="0.0"
+                                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <font>
-                                <Font name="System Bold" size="20.0" />
+                                <Font name="System Bold" size="20.0"/>
                             </font>
                         </Button>
                     </children>
@@ -39,42 +47,54 @@
         </SplitPane>
     </bottom>
     <center>
-        <SplitPane dividerPositions="0.22756005056890014" prefHeight="245.0" prefWidth="529.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.22756005056890014" prefHeight="245.0" prefWidth="529.0"
+                   BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="243.0" prefWidth="116.0">
                     <children>
-                        <ListView fx:id="listPersons" layoutX="-14.0" layoutY="63.0" prefHeight="243.0" prefWidth="116.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="listPersons" layoutX="-14.0" layoutY="63.0" prefHeight="243.0"
+                                  prefWidth="116.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="243.0" prefWidth="403.0">
                     <children>
-                        <ListView fx:id="listView" layoutX="-207.0" layoutY="57.0" prefHeight="243.0" prefWidth="403.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="listView" layoutX="-207.0" layoutY="57.0" prefHeight="243.0" prefWidth="403.0"
+                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                  AnchorPane.topAnchor="0.0"/>
                     </children>
                 </AnchorPane>
             </items>
         </SplitPane>
     </center>
     <top>
-        <SplitPane dividerPositions="0.22756005056890014" prefHeight="36.0" prefWidth="529.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.22756005056890014" prefHeight="36.0" prefWidth="529.0"
+                   BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="28.0" prefWidth="116.0">
                     <children>
-                        <TextField fx:id="textLoginNick" layoutX="1.0" onAction="#onChangeNick" prefHeight="28.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TextField fx:id="textLoginNick" layoutX="1.0" onAction="#onChangeNick" prefHeight="28.0"
+                                   prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <font>
-                                <Font name="System Bold" size="20.0" />
+                                <Font name="System Bold" size="20.0"/>
                             </font>
                         </TextField>
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="403.0">
                     <children>
-                        <Button fx:id="btnChangeNick" mnemonicParsing="false" onAction="#onChangeNick" prefHeight="28.0" prefWidth="38.0" text="Change" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="0.0" />
-                        <Label fx:id="labelPersonChat" alignment="CENTER_RIGHT" layoutX="121.0" prefHeight="34.0" prefWidth="282.0" textAlignment="CENTER" textFill="#2b8a20" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="btnChangeNick" mnemonicParsing="false" onAction="#onChangeNick" prefHeight="28.0"
+                                prefWidth="38.0" text="Change" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="0.0"/>
+                        <Label fx:id="labelPersonChat" alignment="CENTER_RIGHT" layoutX="121.0" prefHeight="34.0"
+                               prefWidth="282.0" textAlignment="CENTER" textFill="#2b8a20" AnchorPane.bottomAnchor="0.0"
+                               AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <font>
-                                <Font name="System Bold" size="20.0" />
+                                <Font name="System Bold" size="20.0"/>
                             </font>
                             <padding>
-                                <Insets right="10.0" />
+                                <Insets right="10.0"/>
                             </padding>
                         </Label>
                     </children>

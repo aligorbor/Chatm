@@ -74,7 +74,10 @@ public class App extends Application {
         primaryStage.setScene(new Scene(root));
         //primaryStage.setX(2200);
         controller = loader.getController();
+        primaryStage.setOnCloseRequest(evt -> {
+            controller.saveChatToFiles();
+        });
         primaryStage.show();
     }
-
 }
+

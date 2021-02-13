@@ -13,5 +13,6 @@ public interface AuthService {
     void stop();
 
     ArrayList<String> getLogins();
+
 }
 
