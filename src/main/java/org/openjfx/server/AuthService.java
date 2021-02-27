@@ -15,4 +15,3 @@ public interface AuthService {
     ArrayList<String> getLogins();
 
 }
-

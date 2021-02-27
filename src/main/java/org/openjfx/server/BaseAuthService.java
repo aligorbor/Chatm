@@ -1,5 +1,8 @@
 package org.openjfx.server;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -7,6 +10,8 @@ public class BaseAuthService implements AuthService {
     private final String strDriver;
     private final String strUrl;
     private Connection connection;
+
+    private static final Logger logger = LogManager.getLogger(BaseAuthService.class);
 
     public BaseAuthService() {
         strDriver = "org.sqlite.JDBC";
@@ -21,7 +26,8 @@ public class BaseAuthService implements AuthService {
     @Override
     public void start() throws SQLException, ClassNotFoundException {
         setConnection(true);
-        System.out.println("Сервис аутентификации запущен");
+        //  System.out.println("Сервис аутентификации запущен");
+        logger.info("Сервис аутентификации запущен");
     }
 
     @Override
@@ -36,7 +42,8 @@ public class BaseAuthService implements AuthService {
             rs.next();
             str = rs.getString(1);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            //  throwables.printStackTrace();
+            logger.error(throwables);
         }
         return str;
     }
@@ -59,7 +66,8 @@ public class BaseAuthService implements AuthService {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            //    throwables.printStackTrace();
+            logger.error(throwables);
         }
         return null;
     }
@@ -71,7 +79,8 @@ public class BaseAuthService implements AuthService {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Сервис аутентификации остановлен");
+        //     System.out.println("Сервис аутентификации остановлен");
+        logger.info("Сервис аутентификации остановлен");
     }
 
     @Override
@@ -85,7 +94,8 @@ public class BaseAuthService implements AuthService {
                 arrayList.add(rs.getString(1));
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            //   throwables.printStackTrace();
+            logger.error(throwables);
         }
         return arrayList;
     }

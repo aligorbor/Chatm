@@ -1,5 +1,8 @@
 package org.openjfx.server;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,6 +15,7 @@ public class MyServer {
 
     private List<ClientHandler> clients;
     private AuthService authService;
+    private static final Logger logger = LogManager.getLogger((MyServer.class));
 
     public static final String CMD_PREF_AUTH = "/auth";
     public static final String CMD_PREF_AUTHOK = "/authok";
@@ -38,13 +42,16 @@ public class MyServer {
             authService.start();
             clients = new ArrayList<>();
             while (true) {
-                System.out.println("Сервер ожидает подключения");
+//                System.out.println("Сервер ожидает подключения");
+                logger.info("Сервер ожидает подключения");
                 Socket socket = server.accept();
-                System.out.println("Клиент подключился");
+//                System.out.println("Клиент подключился");
+                logger.info("Сервер ожидает подключения");
                 new ClientHandler(this, socket);
             }
         } catch (IOException | SQLException | ClassNotFoundException e) {
-            System.out.println("Ошибка в работе сервера");
+            //           System.out.println("Ошибка в работе сервера");
+            logger.error("Ошибка в работе сервера");
             throw e;
         } finally {
             if (authService != null) {

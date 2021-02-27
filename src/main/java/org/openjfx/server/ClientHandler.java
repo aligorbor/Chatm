@@ -1,5 +1,8 @@
 package org.openjfx.server;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -15,6 +18,8 @@ public class ClientHandler {
     private DataOutputStream out;
 
     private String name;
+
+    private static final Logger logger = LogManager.getLogger(ClientHandler.class);
 
     public String getName() {
         return name;
@@ -34,6 +39,7 @@ public class ClientHandler {
                     readMessages();
                 } catch (IOException e) {
                     //  e.printStackTrace();
+                    logger.error(e);
                 } finally {
                     closeConnection();
                 }
@@ -41,6 +47,7 @@ public class ClientHandler {
             }).start();
 
         } catch (IOException e) {
+            logger.error(e);
             throw new RuntimeException("Проблемы при создании обработчика клиента");
         }
     }
@@ -54,7 +61,8 @@ public class ClientHandler {
             } catch (IOException e) {
                 throw new IOException();
             }
-            System.out.println(str);
+            //  System.out.println(str);
+            logger.info(str);
             if (str.startsWith(MyServer.CMD_PREF_AUTH)) {
                 String[] parts = str.split("\\s");
                 String nick = myServer.getAuthService().getNickByLoginPass(parts[1], parts[2]);
@@ -95,7 +103,8 @@ public class ClientHandler {
         try {
             out.writeUTF(msg);
         } catch (IOException e) {
-            e.printStackTrace();
+            //    e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -103,13 +112,15 @@ public class ClientHandler {
         myServer.unsubscribe(this);
         if (!name.isBlank())
             myServer.broadcastMsg(MyServer.CMD_PREF_NICKEND + " " + name);
-        System.out.println("Клиент " + name + " отключился");
+        //   System.out.println("Клиент " + name + " отключился");
+        logger.info("Клиент " + name + " отключился");
         try {
             in.close();
             out.close();
             socket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            //  e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -122,7 +133,8 @@ public class ClientHandler {
             } catch (IOException e) {
                 throw new IOException();
             }
-            System.out.println("от " + name + ": " + strFromClient);
+            //  System.out.println("от " + name + ": " + strFromClient);
+            logger.info("от " + name + ": " + strFromClient);
             if (strFromClient.equals(MyServer.CMD_PREF_END)) {
                 return;
             }
