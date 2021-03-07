@@ -10,6 +10,8 @@ public interface AuthService {
 
     String changeNick(String oldNick, String newNick);
 
+    String registerNew(String login, String pass, String nick);
+
     void stop();
 
     ArrayList<String> getLogins();

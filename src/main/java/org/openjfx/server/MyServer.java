@@ -17,6 +17,7 @@ public class MyServer {
     private AuthService authService;
     private static final Logger logger = LogManager.getLogger((MyServer.class));
 
+    public static final String CMD_PREF_REGISTER = "/register";
     public static final String CMD_PREF_AUTH = "/auth";
     public static final String CMD_PREF_AUTHOK = "/authok";
     public static final String CMD_PREF_NICK = "/nick";

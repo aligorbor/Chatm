@@ -1,0 +1,3 @@
+BatMan зашел в чат
+BatMan: hello
+Peter вышел из чата

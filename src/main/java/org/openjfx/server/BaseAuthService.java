@@ -33,7 +33,7 @@ public class BaseAuthService implements AuthService {
     @Override
     public String getNickByLoginPass(String login, String pass) {
         String str = null;
-        PreparedStatement pst = null;
+        PreparedStatement pst;
         try {
             pst = connection.prepareStatement("SELECT nick FROM logins WHERE login = ? and pass = ?");
             pst.setString(1, login);
@@ -43,16 +43,14 @@ public class BaseAuthService implements AuthService {
             str = rs.getString(1);
         } catch (SQLException throwables) {
             //  throwables.printStackTrace();
-            logger.error(throwables);
+            logger.error(throwables.getMessage());
         }
         return str;
     }
 
     @Override
     public String changeNick(String oldNick, String newNick) {
-        String str = null;
-        PreparedStatement pst = null;
-
+        PreparedStatement pst;
         try {
             pst = connection.prepareStatement("SELECT COUNT (*) FROM logins WHERE nick = ?");
             pst.setString(1, newNick);
@@ -64,10 +62,40 @@ public class BaseAuthService implements AuthService {
                 pst.setString(2, oldNick);
                 if (pst.executeUpdate() > 0) return newNick;
             }
+        } catch (SQLException throwables) {
+            //    throwables.printStackTrace();
+            logger.error(throwables.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public String registerNew(String login, String pass, String nick) {
+        PreparedStatement pst;
+        try {
+            pst = connection.prepareStatement("SELECT COUNT (*) FROM logins WHERE nick = ?");
+            pst.setString(1, nick);
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            if (rs.getInt(1) > 0) return "Ошибка регистрации. Ник " + nick + " уже существует";
+
+            pst = connection.prepareStatement("SELECT COUNT (*) FROM logins WHERE login = ?");
+            pst.setString(1, login);
+            rs = pst.executeQuery();
+            rs.next();
+            if (rs.getInt(1) > 0) return "Ошибка регистрации. Логин " + login + " уже существует";
+
+            if (rs.getInt(1) == 0) {
+                pst = connection.prepareStatement("insert into logins values (?,?,?)");
+                pst.setString(1, login);
+                pst.setString(2, pass);
+                pst.setString(3, nick);
+                if (pst.executeUpdate() > 0) return nick;
+            }
 
         } catch (SQLException throwables) {
             //    throwables.printStackTrace();
-            logger.error(throwables);
+            logger.error(throwables.getMessage());
         }
         return null;
     }
@@ -77,7 +105,8 @@ public class BaseAuthService implements AuthService {
         try {
             setConnection(false);
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            //  e.printStackTrace();
+            logger.error(e.getMessage());
         }
         //     System.out.println("Сервис аутентификации остановлен");
         logger.info("Сервис аутентификации остановлен");
@@ -86,7 +115,7 @@ public class BaseAuthService implements AuthService {
     @Override
     public ArrayList<String> getLogins() {
         ArrayList<String> arrayList = new ArrayList<>();
-        Statement stmt = null;
+        Statement stmt;
         try {
             stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM logins");
@@ -95,7 +124,7 @@ public class BaseAuthService implements AuthService {
             }
         } catch (SQLException throwables) {
             //   throwables.printStackTrace();
-            logger.error(throwables);
+            logger.error(throwables.getMessage());
         }
         return arrayList;
     }

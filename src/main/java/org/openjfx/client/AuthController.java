@@ -1,18 +1,23 @@
 package org.openjfx.client;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openjfx.App;
 
 import java.io.IOException;
 
 public class AuthController {
-
+    private static final Logger logger = LogManager.getLogger("client");
     @FXML
     public PasswordField passwordField;
     @FXML
     private ChoiceBox<String> choicePersonAccount;
+
     @FXML
     private Button authButton;
 
@@ -28,12 +33,13 @@ public class AuthController {
         });
     }
 
+    @FXML
     public void checkAuth() {
         String login = choicePersonAccount.getValue().trim();
         String password = passwordField.getText().trim();
 
         if (login.length() == 0 || password.length() == 0) {
-            System.out.println("!!Поля не должны быть пустыми");
+            authErrAlert("Ошибка авторизации", "Поля не должны быть пустыми!");
             return;
         }
 
@@ -42,10 +48,14 @@ public class AuthController {
             network.setCurrentLogin(login);
             passwordField.clear();
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("!!Ошибка аутентификации");
+            logger.error(e.getMessage());
         }
 
+    }
+
+    @FXML
+    void register() {
+        Platform.runLater(() -> network.getAppChat().getRegisterStage().show());
     }
 
     public void setNetwork(Network network) {
@@ -70,5 +80,12 @@ public class AuthController {
             passwordField.setDisable(false);
             authButton.setDisable(false);
         }
+    }
+
+    public void authErrAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.show();
     }
 }

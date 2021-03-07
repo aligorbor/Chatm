@@ -39,7 +39,7 @@ public class ClientHandler {
                     readMessages();
                 } catch (IOException e) {
                     //  e.printStackTrace();
-                    logger.error(e);
+                    logger.error(e.getMessage());
                 } finally {
                     closeConnection();
                 }
@@ -47,7 +47,7 @@ public class ClientHandler {
             }).start();
 
         } catch (IOException e) {
-            logger.error(e);
+            logger.error(e.getMessage());
             throw new RuntimeException("Проблемы при создании обработчика клиента");
         }
     }
@@ -55,7 +55,7 @@ public class ClientHandler {
     public void authentication() throws IOException {
         socket.setSoTimeout(MyServer.SO_TIMEOUT_AUTH);
         while (true) {
-            String str = null;
+            String str;
             try {
                 str = in.readUTF();
             } catch (IOException e) {
@@ -81,6 +81,29 @@ public class ClientHandler {
                     sendMsg("Неверные логин/пароль");
                 }
             }
+
+            if (str.startsWith(MyServer.CMD_PREF_REGISTER)) {
+                String[] parts = str.split("\\s");
+                String login = parts[1];
+                String pass = parts[2];
+                String nick = parts[3];
+                String nickAuth = myServer.getAuthService().registerNew(login, pass, nick);
+                if (nick != null) {
+                    if (nick.equals(nickAuth)) {
+                        sendMsg(MyServer.CMD_PREF_AUTHOK + " " + nick);
+                        name = nick;
+                        sendConnectedNicks();
+                        myServer.subscribe(this);
+                        myServer.broadcastMsg(MyServer.CMD_PREF_NICK + " " + name);
+                        return;
+                    } else {
+                        sendMsg(nickAuth);
+                    }
+                } else {
+                    sendMsg("Ошибка регистрации.");
+                }
+            }
+
         }
     }
 
@@ -104,7 +127,7 @@ public class ClientHandler {
             out.writeUTF(msg);
         } catch (IOException e) {
             //    e.printStackTrace();
-            logger.error(e);
+            logger.error(e.getMessage());
         }
     }
 
@@ -120,14 +143,14 @@ public class ClientHandler {
             socket.close();
         } catch (IOException e) {
             //  e.printStackTrace();
-            logger.error(e);
+            logger.error(e.getMessage());
         }
     }
 
     public void readMessages() throws IOException {
         socket.setSoTimeout(MyServer.SO_TIMEOUT_INACTIVITY);
         while (true) {
-            String strFromClient = null;
+            String strFromClient;
             try {
                 strFromClient = in.readUTF();
             } catch (IOException e) {

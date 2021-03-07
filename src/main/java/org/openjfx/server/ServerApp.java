@@ -18,8 +18,7 @@ public class ServerApp {
         try {
             new MyServer(port);
         } catch (IOException | SQLException | ClassNotFoundException e) {
-
-            logger.error("Ошибка", e);
+            logger.error(e.getMessage());
             System.exit(1);
         }
     }

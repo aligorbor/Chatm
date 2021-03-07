@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -12,6 +14,7 @@ import java.util.Date;
 
 public class Controller {
 
+    private static final Logger logger = LogManager.getLogger("client");
 
     @FXML
     private TextField inputField;
@@ -83,14 +86,11 @@ public class Controller {
             try {
                 network.getOut().writeUTF(message);
             } catch (IOException e) {
-                System.out.println("Ошибка при отправке сообщения");
+                //  System.out.println("Ошибка при отправке сообщения");
+                logger.error(e.getMessage());
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Input Error");
-            alert.setHeaderText("Ошибка ввода сообщения");
-            alert.setContentText("Нельзя отправлять пустое сообщение");
-            alert.show();
+            chatErrAlert("Ошибка ввода сообщения", "Нельзя отправлять пустое сообщение");
         }
         inputField.clear();
         textLoginNick.setText(loginNick);
@@ -102,7 +102,8 @@ public class Controller {
 
     public void refreshChatList() {
         if (listView.getItems().size() > 0)
-            chatSelectionModel.select(listView.getItems().size() - 1);
+            listView.scrollTo(listView.getItems().size() - 1);
+        //  chatSelectionModel.select(listView.getItems().size() - 1);
     }
 
     public void appendMessage(String message) {
@@ -198,7 +199,7 @@ public class Controller {
         if (newNick.equals(loginNick)) return;
 
         if (newNick.length() == 0) {
-            System.out.println("!!Ник не должен быть пустым");
+            chatErrAlert("Ошибка смены ника", "Ник не должен быть пустым");
             return;
         }
 
@@ -206,8 +207,7 @@ public class Controller {
             network.getOut().writeUTF(Network.CMD_PREF_CHANGENICK + " " + loginNick + " " + newNick);
             textLoginNick.setText(loginNick);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("!!Ошибка смены ника");
+            logger.error(e.getMessage());
         }
     }
 
@@ -226,7 +226,7 @@ public class Controller {
                 writer.write(chat.get(i) + "\n");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
     }
@@ -251,7 +251,7 @@ public class Controller {
                     history.add(str);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
             int indexFrom;
             if (history.size() > Network.HISTORY_NUMBER_LINES) {
@@ -266,5 +266,12 @@ public class Controller {
             }
 
         }
+    }
+
+    public void chatErrAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.show();
     }
 }

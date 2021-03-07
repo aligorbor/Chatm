@@ -16,3 +16,9 @@ Peter: параов
 Serg: Поговорим лично
 Peter: О чем?
 Serg: О погоде
+Serg: енгенген
+Peter: негенгенген
+Serg: qq
+Peter: qqq
+Serg: hi how are you?
+Peter: i'm ok

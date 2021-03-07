@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="180.0" prefWidth="343.0" xmlns="http://javafx.com/javafx/8.0.171"
+<AnchorPane prefHeight="179.0" prefWidth="403.0" xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.client.AuthController">
     <children>
         <PasswordField fx:id="passwordField" disable="true" layoutX="113.0" layoutY="66.0" onAction="#checkAuth"
@@ -27,12 +27,17 @@
             </font>
         </Label>
         <Button fx:id="authButton" disable="true" layoutX="113.0" layoutY="123.0" mnemonicParsing="false"
-                onAction="#checkAuth" text="Sign in">
+                onAction="#checkAuth" prefHeight="39.0" prefWidth="91.0" text="Sign in">
             <font>
                 <Font size="18.0"/>
             </font>
         </Button>
         <ChoiceBox fx:id="choicePersonAccount" layoutX="113.0" layoutY="18.0" prefHeight="39.0" prefWidth="210.0"/>
+        <Button layoutX="232.0" layoutY="123.0" mnemonicParsing="false" onAction="#register" prefHeight="39.0"
+                prefWidth="91.0" text="Register">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Button>
     </children>
 </AnchorPane>
-

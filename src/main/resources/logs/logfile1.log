@@ -1,0 +1,2 @@
+ERROR 2021-03-06 21:44:30 [JavaFX Application Thread] org.openjfx.App (App.java:65)- Ошибка
+ERROR 2021-03-06 22:16:35 [JavaFX Application Thread] org.openjfx.client.Network (Network.java:109)- Соединение не установлено

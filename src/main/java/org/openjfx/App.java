@@ -6,18 +6,27 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openjfx.client.AuthController;
 import org.openjfx.client.Controller;
 import org.openjfx.client.Network;
+import org.openjfx.client.RegisterController;
+import org.openjfx.server.ServerApp;
 
 import java.io.IOException;
 
 public class App extends Application {
+    private static final Logger logger = LogManager.getLogger("client");
+
     private Stage primaryStage;
     private Stage authStage;
+    private Stage registerStage;
+
     private Network network;
     private Controller controller;
     private AuthController authLoaderController;
+    private RegisterController registerLoaderController;
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -27,21 +36,35 @@ public class App extends Application {
         return authStage;
     }
 
+    public Stage getRegisterStage() {
+        return registerStage;
+    }
+
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
 
-        chatDialog();
-        authDialig();
-        network = new Network();
-        network.setController(controller);
-        network.setAuthController(authLoaderController);
-        network.setMainChat(this);
-        controller.setNetwork(network);
-        authLoaderController.setNetwork(network);
+        try {
+            chatDialog();
+            authDialig();
+            registerDialig();
+            network = new Network();
+            network.setController(controller);
+            network.setAuthController(authLoaderController);
+            network.setRegisterController(registerLoaderController);
+            network.setAppChat(this);
+            controller.setNetwork(network);
+            authLoaderController.setNetwork(network);
+            registerLoaderController.setNetwork(network);
 
-        if (!network.connect())
+            if (!network.connect())
+                System.exit(0);
+
+        } catch (Exception e) {
+            logger.error(e.getMessage());
             System.exit(1);
+        }
     }
 
     public static void main(String[] args) {
@@ -78,6 +101,19 @@ public class App extends Application {
             controller.saveChatToFiles();
         });
         primaryStage.show();
+    }
+
+    private void registerDialig() throws IOException {
+        FXMLLoader registerLoader = new FXMLLoader();
+        registerLoader.setLocation(App.class.getResource("register-view.fxml"));
+
+        Parent root = registerLoader.load();
+        registerStage = new Stage();
+        registerStage.setTitle("Регистрация");
+        registerStage.setScene(new Scene(root));
+        registerStage.initModality(Modality.WINDOW_MODAL);
+        registerStage.initOwner(authStage);
+        registerLoaderController = registerLoader.getController();
     }
 }
 

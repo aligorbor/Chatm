@@ -1,23 +1,91 @@
-INFO  2021-02-26 16:35:45 [main] org.openjfx.server.BaseAuthService (BaseAuthService.java:30)- Сервис аутентификации запущен
-INFO  2021-02-26 16:35:45 [main] org.openjfx.server.MyServer (MyServer.java:46)- Сервер ожидает подключения
-INFO  2021-02-26 16:36:10 [main] org.openjfx.server.MyServer (MyServer.java:49)- Сервер ожидает подключения
-INFO  2021-02-26 16:36:10 [main] org.openjfx.server.MyServer (MyServer.java:46)- Сервер ожидает подключения
-INFO  2021-02-26 16:36:15 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth login1 111
-INFO  2021-02-26 16:36:24 [main] org.openjfx.server.MyServer (MyServer.java:49)- Сервер ожидает подключения
-INFO  2021-02-26 16:36:24 [main] org.openjfx.server.MyServer (MyServer.java:46)- Сервер ожидает подключения
-INFO  2021-02-26 16:36:28 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth login2 111
-INFO  2021-02-26 16:36:32 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:137)- от Peter: dvsdvsvsvsv
-INFO  2021-02-26 16:36:34 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:137)- от Serg: vxvxvxcv
-INFO  2021-02-26 16:36:42 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:137)- от Serg: /w Peter: qq
-INFO  2021-02-26 16:36:46 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:137)- от Peter: /w Serg: qqq
-ERROR 2021-02-26 16:37:15 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:42)- java.io.IOException
-INFO  2021-02-26 16:37:15 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:116)- Клиент Peter отключился
-ERROR 2021-02-26 16:37:17 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:42)- java.io.IOException
-INFO  2021-02-26 16:37:17 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:116)- Клиент Serg отключился
-INFO  2021-02-26 16:39:22 [Thread-0] org.openjfx.server.BaseAuthService (BaseAuthService.java:83)- Сервис аутентификации остановлен
-INFO  2021-02-26 16:40:48 [main] org.openjfx.server.BaseAuthService (BaseAuthService.java:30)- Сервис аутентификации запущен
-INFO  2021-02-26 16:40:48 [main] org.openjfx.server.MyServer (MyServer.java:46)- Сервер ожидает подключения
-INFO  2021-02-26 16:41:06 [Thread-0] org.openjfx.server.BaseAuthService (BaseAuthService.java:83)- Сервис аутентификации остановлен
-INFO  2021-02-27 22:24:04 [main] org.openjfx.server.BaseAuthService (BaseAuthService.java:30)- Сервис аутентификации запущен
-INFO  2021-02-27 22:24:04 [main] org.openjfx.server.MyServer (MyServer.java:46)- Сервер ожидает подключения
-INFO  2021-02-27 22:24:14 [Thread-0] org.openjfx.server.BaseAuthService (BaseAuthService.java:83)- Сервис аутентификации остановлен
+
+ERROR 2021-03-06 21:44:30 [Thread-27] org.openjfx.server.ClientHandler (ClientHandler.java:42)- java.io.IOException
+INFO  2021-03-06 21:44:30 [Thread-27] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент  отключился
+INFO  2021-03-06 21:45:54 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-06 21:45:54 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+ERROR 2021-03-06 21:45:57 [Thread-28] org.openjfx.server.ClientHandler (ClientHandler.java:42)- java.io.IOException
+INFO  2021-03-06 21:45:57 [Thread-28] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент  отключился
+INFO  2021-03-06 22:14:44 [main] org.openjfx.server.BaseAuthService (BaseAuthService.java:30)- Сервис аутентификации запущен
+INFO  2021-03-06 22:14:44 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-06 22:14:54 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-06 22:14:54 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-06 22:14:59 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth login1 111
+INFO  2021-03-06 22:15:08 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-06 22:15:08 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-06 22:15:29 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /register Semen 111 theBest
+INFO  2021-03-06 22:15:37 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:160)- от theBest: qqq
+INFO  2021-03-06 22:15:39 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:160)- от Serg: qq
+ERROR 2021-03-06 22:15:45 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-06 22:15:45 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент theBest отключился
+ERROR 2021-03-06 22:15:46 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-06 22:15:46 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент Serg отключился
+INFO  2021-03-06 22:15:59 [Thread-0] org.openjfx.server.BaseAuthService (BaseAuthService.java:112)- Сервис аутентификации остановлен
+ERROR 2021-03-06 22:16:35 [JavaFX Application Thread] org.openjfx.client.Network (Network.java:109)- ????? ? ??????
+INFO  2021-03-07 10:05:03 [main] org.openjfx.server.BaseAuthService (BaseAuthService.java:30)- Сервис аутентификации запущен
+INFO  2021-03-07 10:05:03 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:05:11 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-07 10:05:11 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:05:18 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth login1 111
+INFO  2021-03-07 10:05:27 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-07 10:05:27 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:05:42 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth Semen 111
+INFO  2021-03-07 10:06:12 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:160)- от Serg: hello
+INFO  2021-03-07 10:06:17 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:160)- от theBest: yes
+ERROR 2021-03-07 10:06:25 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-07 10:06:25 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент theBest отключился
+ERROR 2021-03-07 10:06:27 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-07 10:06:27 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент Serg отключился
+INFO  2021-03-07 10:09:56 [Thread-0] org.openjfx.server.BaseAuthService (BaseAuthService.java:112)- Сервис аутентификации остановлен
+INFO  2021-03-07 10:17:00 [main] org.openjfx.server.BaseAuthService (BaseAuthService.java:30)- Сервис аутентификации запущен
+INFO  2021-03-07 10:17:00 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:17:08 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-07 10:17:08 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+ERROR 2021-03-07 10:17:31 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-07 10:17:31 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент  отключился
+INFO  2021-03-07 10:19:14 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-07 10:19:14 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:19:20 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth login1 111
+ERROR 2021-03-07 10:20:41 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-07 10:20:41 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент Serg отключился
+INFO  2021-03-07 10:26:20 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-07 10:26:20 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:26:24 [Thread-3] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth login1 111
+INFO  2021-03-07 10:26:54 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-07 10:26:54 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:27:08 [Thread-4] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth login2 111
+INFO  2021-03-07 10:27:33 [Thread-3] org.openjfx.server.ClientHandler (ClientHandler.java:160)- от Serg: Привет петя
+INFO  2021-03-07 10:27:42 [Thread-4] org.openjfx.server.ClientHandler (ClientHandler.java:160)- от Peter: привет сергей
+ERROR 2021-03-07 10:27:47 [Thread-4] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-07 10:27:47 [Thread-4] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент Peter отключился
+ERROR 2021-03-07 10:27:49 [Thread-3] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-07 10:27:49 [Thread-3] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент Serg отключился
+INFO  2021-03-07 10:34:14 [Thread-0] org.openjfx.server.BaseAuthService (BaseAuthService.java:112)- Сервис аутентификации остановлен
+INFO  2021-03-07 10:35:55 [main] org.openjfx.server.BaseAuthService (BaseAuthService.java:30)- Сервис аутентификации запущен
+INFO  2021-03-07 10:35:55 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:36:06 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-07 10:36:06 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:36:12 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth login1 111
+INFO  2021-03-07 10:36:22 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-07 10:36:22 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:36:30 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth login2 111
+INFO  2021-03-07 10:36:39 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-07 10:36:39 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:37:16 [Thread-3] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /register Andrey 111 BatMan
+INFO  2021-03-07 10:37:41 [Thread-3] org.openjfx.server.ClientHandler (ClientHandler.java:160)- от BatMan: hello
+INFO  2021-03-07 10:37:59 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:160)- от Serg: /w BatMan: who are you?
+INFO  2021-03-07 10:38:13 [Thread-3] org.openjfx.server.ClientHandler (ClientHandler.java:160)- от BatMan: /w Serg: i am batman
+ERROR 2021-03-07 10:38:38 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-07 10:38:38 [Thread-2] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент Peter отключился
+ERROR 2021-03-07 10:38:40 [Thread-3] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-07 10:38:40 [Thread-3] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент BatMan отключился
+ERROR 2021-03-07 10:38:41 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-07 10:38:41 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент Serg отключился
+INFO  2021-03-07 10:41:21 [Thread-0] org.openjfx.server.BaseAuthService (BaseAuthService.java:112)- Сервис аутентификации остановлен
+INFO  2021-03-07 10:51:11 [main] org.openjfx.server.BaseAuthService (BaseAuthService.java:30)- Сервис аутентификации запущен
+INFO  2021-03-07 10:51:11 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:51:23 [main] org.openjfx.server.MyServer (MyServer.java:50)- Сервер ожидает подключения
+INFO  2021-03-07 10:51:23 [main] org.openjfx.server.MyServer (MyServer.java:47)- Сервер ожидает подключения
+INFO  2021-03-07 10:51:33 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:65)- /auth login1 111
+ERROR 2021-03-07 10:51:45 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:42)- null
+INFO  2021-03-07 10:51:45 [Thread-1] org.openjfx.server.ClientHandler (ClientHandler.java:139)- Клиент Serg отключился
+INFO  2021-03-07 10:51:52 [Thread-0] org.openjfx.server.BaseAuthService (BaseAuthService.java:112)- Сервис аутентификации остановлен

@@ -1,6 +1,8 @@
 package org.openjfx.client;
 
 import javafx.application.Platform;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openjfx.App;
 
 import java.io.DataInputStream;
@@ -9,9 +11,12 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class Network {
+    private static final Logger logger = LogManager.getLogger("client");
+
     private static final int DEFAULT_SERVER_SOCKET = 8189;
     private static final String DEFAULT_SERVER_HOST = "localhost";
 
+    public static final String CMD_PREF_REGISTER = "/register";
     public static final String CMD_PREF_AUTH = "/auth";
     public static final String CMD_PREF_AUTHOK = "/authok";
     public static final String CMD_PREF_NICK = "/nick";
@@ -40,9 +45,15 @@ public class Network {
 
     private Controller controller;
     private AuthController authController;
+    private RegisterController registerController;
+
     private App appChat;
 
-    public void setMainChat(App appChat) {
+    public App getAppChat() {
+        return appChat;
+    }
+
+    public void setAppChat(App appChat) {
         this.appChat = appChat;
     }
 
@@ -52,6 +63,10 @@ public class Network {
 
     public void setAuthController(AuthController authController) {
         this.authController = authController;
+    }
+
+    public void setRegisterController(RegisterController registerController) {
+        this.registerController = registerController;
     }
 
     public String getCurrentLogin() {
@@ -90,7 +105,8 @@ public class Network {
             setAuthorized(false);
             startAuthorization();
         } catch (IOException e) {
-            System.out.println("Соединение не установлено");
+            //   System.out.println("Соединение не установлено");
+            logger.error(e.getMessage());
             return false;
         }
         return true;
@@ -103,7 +119,8 @@ public class Network {
             out.writeUTF(Network.CMD_PREF_END);
             socket.close();
         } catch (IOException e) {
-            System.out.println("Ошибка отключения");
+            // System.out.println("Ошибка отключения");
+            logger.error(e.getMessage());
         }
 
     }
@@ -135,12 +152,18 @@ public class Network {
 
                             Platform.runLater(() -> controller.refreshChatList());
                             Platform.runLater(() -> appChat.getAuthStage().close());
-                            //   Platform.runLater(() -> mainChat.getPrimaryStage().show());
+                            Platform.runLater(() -> appChat.getRegisterStage().close());
+                            Platform.runLater(() -> appChat.getPrimaryStage().setTitle("Chat " + currentLogin));
+                            Platform.runLater(() -> appChat.getPrimaryStage().setAlwaysOnTop(true));
                             break;
-                        } else Platform.runLater(() -> controller.appendMessage(message));
+                        } else
+                            //  Platform.runLater(() -> controller.appendMessage(message));
+                            Platform.runLater(() -> authController.authErrAlert("Ошибка авторизации", message));
+
                     }
                 } catch (IOException e) {
-                    System.out.println("Ошибка при авторизации");
+                    //   System.out.println("Ошибка при авторизации");
+                    logger.error(e.getMessage());
                     System.exit(1);
                 }
             }
@@ -162,7 +185,8 @@ public class Network {
                             Platform.runLater(() -> controller.appendMessage(message));
                         }
                     } catch (IOException | NullPointerException e) {
-                        System.out.println("Ошибка подключения");
+                        //   System.out.println("Ошибка подключения");
+                        logger.error(e.getMessage());
                         System.exit(1);
                     }
                 } else

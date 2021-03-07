@@ -7,11 +7,19 @@
         <File name="FILE" fileName="${basePath}/logfile.log">
             <PatternLayout pattern="%-5p %d{yyyy-MM-dd HH:mm:ss} [%t] %C (%F:%L)- %m%n"/>
         </File>
+        <File name="FILE1" fileName="${basePath}/logfile1.log">
+            <PatternLayout pattern="%-5p %d{yyyy-MM-dd HH:mm:ss} [%t] %C (%F:%L)- %m%n"/>
+        </File>
         <Console name="STDOUT" target="SYSTEM_OUT">
             <PatternLayout pattern="%-5p %d{yyyy-MM-dd HH:mm:ss} [%t] %C (%F:%L)- %m%n"/>
         </Console>
     </Appenders>
     <Loggers>
+        <Logger name="client" level="info">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="FILE1"/>
+        </Logger>
+
         <Root level="info">
             <AppenderRef ref="STDOUT"/>
             <AppenderRef ref="FILE"/>
